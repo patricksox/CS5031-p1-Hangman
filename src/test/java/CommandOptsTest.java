@@ -11,6 +11,7 @@ public class CommandOptsTest {
 		assertEquals(opts.maxguesses, 2);
 		assertEquals(opts.maxhints, 4);
 		assertEquals(opts.wordsource, "words.txt");
+
 	}
 
 }
