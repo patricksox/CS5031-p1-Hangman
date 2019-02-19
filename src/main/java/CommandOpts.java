@@ -10,6 +10,7 @@ public class CommandOpts {
 		maxhints = 2;
 		
 		wordsource = "";
+
 		
 		for(int i = 0; i < args.length; ++i) {
 			if (args[i].equals("--guesses")) {
