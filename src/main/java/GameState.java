@@ -1,46 +1,74 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
+/**
+ *
+ */
 // The game state
 public class GameState {
     public String word; // letters
-    public int g;
-    public int wrong;
-    public int h;
+    public int guessTime; // the time that user have used to guess the answer
+    public int guessRemain; // the remain time that user can guess the answer
+    public int hint; // the hint that user have used
 
-    ArrayList<Character> got;
-    ArrayList<Character> not;
+    ArrayList<Character> gotWord; //the letter that user has guessed right
+    ArrayList<Character> notInArray; //check the target letter whether has been recorded in the array
 
     public Scanner sc = new Scanner(System.in).useDelimiter("\n");
 
-    public GameState(String target, int g, int h) {
+    public GameState(String target, int maxGuesses, int maxHints) {
         this.word = target;
-        not = new ArrayList<Character>();
-        got = new ArrayList<Character>();
+        notInArray = new ArrayList<Character>();
+        gotWord = new ArrayList<Character>();
 
         for (int i = 0; i < target.length(); ++i) {
-            if (!not.contains(Character.toLowerCase(target.charAt(i))))
-                not.add(Character.toLowerCase(target.charAt(i)));
+            if (!notInArray.contains(Character.toLowerCase(target.charAt(i))))
+                notInArray.add(Character.toLowerCase(target.charAt(i)));
         }
         //System.out.println(missing);
 
-        this.g = 0; // guesses made
-        wrong = g; // guesses remaining
-        this.h = h;
+        this.guessTime = 0; // guesses made
+        guessRemain = maxGuesses; // guesses remaining
+        this.hint = maxHints;
     }
 
+//    public String getTargetWord(String word){
+//        String record = null;
+//
+//        for (int i = 0; i < word.length(); ++i) {
+//
+//            if (gotWord.contains(word.charAt(i))) {
+//                System.out.println(word.charAt(i));
+//            } else {
+//                System.out.print("-");
+//                record += "-"；
+//            }
+//        }
+//        return record;
+//    }
+
+    /*
+     * display the word to user
+     *
+     * */
     void showWord(String word) {
         for (int i = 0; i < word.length(); ++i) {
-            if (got.contains(word.charAt(i))) {
-                System.out.print(word.charAt(i));
+
+            if (gotWord.contains(word.charAt(i))) {
+                System.out.println(word.charAt(i));
             } else {
                 System.out.print("-");
             }
         }
-        System.out.println("");
-        // System.out.println(missing);
+//            System.out.println(" ");
+//         System.out.println("missing");
     }
 
+    /*
+     * let user guess the letter
+     *
+     * */
     boolean guessLetter() {
         int i;
         char letter;
@@ -51,7 +79,7 @@ public class GameState {
 
         if (str.length() > 1) {
             if (str == word) {
-                not.clear();
+                notInArray.clear();
                 return true;
             } else return false;
         }
@@ -63,36 +91,38 @@ public class GameState {
             return false;
         }
 
-        for (i = 0; i < not.size(); ++i) { // Loop over the not got
-            if (not.get(i) == letter) {
-                not.remove(i);
-                got.add(letter);
-                g++;
+        for (i = 0; i < notInArray.size(); ++i) { // Loop over the notInArray, gotWord
+            if (notInArray.get(i) == letter) {
+                notInArray.remove(i);
+                gotWord.add(letter);
+                guessTime++;
                 return true;
             }
         }
 
-        g++; // One more guess
-        wrong--;
+        guessTime++; // One more guessTime
+        guessRemain--;
         return false;
     }
 
     boolean won() {
-        if (not.size() == 0) return true;
+        if (notInArray.size() == 0) return true;
         else return false;
     }
 
     boolean lost() {
-        if (not.size() > 0 && wrong == 0) return true;
+        if (notInArray.size() > 0 && guessRemain == 0) return true;
         else return false;
     }
 
-    void hint() {
-        if (h == 0) {
+    private void hint() {
+        if (hint == 0) {
             System.out.println("No more hints allowed");
+        } else {
+            hint--;
+            System.out.println("Hints left: " + hint);
+            System.out.print("Try: ");
+            System.out.println(notInArray.get((int) (Math.random() * notInArray.size())));
         }
-
-        System.out.print("Try: ");
-        System.out.println(not.get((int) (Math.random() * not.size())));
     }
 }
