@@ -35,19 +35,7 @@ public class GameStateTest {
     }
 //        fail("Not yet implemented");
 
-//    @Test
-//        public void testWon(){
-//        assertTrue(boolean true);
-//    }
 
-    GameState gameState = new GameState("banana", 10, 6);
-//    gameState = gameState.initialiseGameState("banana", 10, 6);
-//    assertEquals(gameState.obscureWord(gameState.getTargetWord(), gameState.lettersGuessed), "------");
-// gameState.checkLetterGuess('b');
-// gameState.checkLetterGuess('a');
-//    assertEquals(gameState.obscureWord(gameState.getTargetWord(), gameState.lettersGuessed), "ba-a-a");
-// gameState.checkLetterGuess('n');
-//    assertEquals(gameState.obscureWord(gameState.getTargetWord(), gameState.lettersGuessed), "banana");
 
     @Test
     public void showWordTest() {
