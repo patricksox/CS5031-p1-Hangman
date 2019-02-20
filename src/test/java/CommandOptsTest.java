@@ -6,11 +6,14 @@ public class CommandOptsTest {
 
 	@Test
 	public void optionsTest() {
-		String[] args = { "--guesses", "2", "--hints", "4", "words.txt" };
+        //test data
+        String[] args = {"--guesses", "10", "--hints", "2", "words.txt"};
 		CommandOpts opts = new CommandOpts(args);
-        assertEquals(opts.maxGuesses, 2);
-        assertEquals(opts.maxHints, 4);
-        assertEquals(opts.wordSource, "words.txt");
+
+        //check for equality
+        assertEquals(10, opts.maxGuesses);
+        assertEquals(2, opts.maxHints);
+        assertEquals("words.txt", opts.wordSource);
 
 	}
 

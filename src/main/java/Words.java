@@ -11,15 +11,28 @@ public class Words {
             "Belgium", "Luxembourg", "Switzerland", "Italy", "Greece"};
     static String[] cities = {"St Andrews", "Edinburgh", "Glasgow", "Kirkcaldy", "Perth",
             "Dundee", "Stirling", "Inverness", "Aberdeen", "Falkirk"};
+    static String[] others = {"Out of range"};
 
     static ArrayList<String> customWords;
 
     public static String randomWord(int category) {
-        if (category == 1)
+        if (category == 1) {
             return counties[(int) (Math.random() * 9)];
-        if (category == 2)
+        } else if (category == 2) {
             return countries[(int) (Math.random() * 15)];
-        return cities[(int) (Math.random() * 10)];
+        } else if (category == 3) {
+            return cities[(int) (Math.random() * 10)];
+        } else {
+            int random = (int) (Math.random() * 3);
+            System.out.println("Out of range and give you random category: " + random);
+            if (random == 1) {
+                return counties[(int) (Math.random() * 9)];
+            } else if (random == 2) {
+                return countries[(int) (Math.random() * 15)];
+            } else {
+                return cities[(int) (Math.random() * 10)];
+            }
+        }
     }
 
     public static String randomWord(String wordSource) {

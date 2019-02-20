@@ -44,6 +44,7 @@ public class Hangman {
 //        GameState state = null;
         CommandOpts opts;
 
+
         opts = new CommandOpts(args);
 
         setGame(sc, opts);
