@@ -2,11 +2,12 @@ import java.util.Scanner;
 
 public class Hangman {
 
-    static void doStuff(Scanner sc, CommandOpts opts, GameState g) {
+    private static void setGame(Scanner sc, CommandOpts opts) {
 
         boolean correct;
 
-        if (opts.wordsource == "") {
+        GameState state;
+        if (opts.wordSource.equals("")) {
 
             System.out.println("  1. Counties");
             System.out.println("  2. Countries");
@@ -14,38 +15,38 @@ public class Hangman {
 
             System.out.print("Pick a category:");
 
-            g = new GameState(Words.randomWord(sc.nextInt()), opts.maxguesses, opts.maxhints);
+            state = new GameState(Words.randomWord(sc.nextInt()), opts.maxGuesses, opts.maxHints);
         } else {
-            g = new GameState(Words.randomWord(opts.wordsource), opts.maxguesses, opts.maxhints);
+            state = new GameState(Words.randomWord(opts.wordSource), opts.maxGuesses, opts.maxHints);
         }
 
-        while (!g.won() && !g.lost()) {
-            g.showWord(g.word);
+        while (!state.won() && !state.lost()) {
+            state.showWord(state.word);
 
-            System.out.println("Guesses remaining: " + g.wrong);
+            System.out.println("Guesses remaining: " + state.guessRemain);
 
-            correct = g.guessLetter();
+            correct = state.guessLetter();
 
             if (correct) System.out.println("Good guess!");
             if (!correct) System.out.println("Wrong guess!");
         }
 
-        if (g.won()) {
+        if (state.won()) {
             System.out.println("Well done!");
-            System.out.println("You took " + g.g + " guesses");
+            System.out.println("You took " + state.guessTime + " guesses");
         } else {
-            System.out.println("You lost! The word was " + g.word);
+            System.out.println("You lost! The word was " + state.word);
         }
     }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        GameState g = null;
+//        GameState state = null;
         CommandOpts opts;
 
         opts = new CommandOpts(args);
 
-        doStuff(sc, opts, g);
+        setGame(sc, opts);
 
     }
 }
